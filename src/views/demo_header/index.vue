@@ -4,34 +4,16 @@
             <div class="header-img">
                 <img src="../../assets/header_img.png" alt="">
             </div>
-            <div class="header-login">
+            <div class="header-login" @click="skipToLogin">
                 <span>登录</span>
             </div>
         </div>
-        <div class="demo-swiper">
+        <div class="demo-swiper" v-if="swiperIntro">
             <mt-swipe :auto="2000">
-                <mt-swipe-item>
-                    <div class="swiper1">
-                        <img class="imgs" src="../../assets/swiper1.png" alt="">
-                        <div class="intro">讲形势指方向——图解读习近平这次对省部级干部说了啥</div>
-                    </div>
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <div class="swiper1">
-                        <img class="imgs" src="../../assets/swiper2.png" alt="">
-                        <div class="intro">习近平：“永远做人民公仆、时代先锋、民族脊梁”</div>
-                    </div>
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <div class="swiper1">
-                        <img class="imgs" src="../../assets/swiper3.png" alt="">
-                        <div class="intro">校长谭贞在信息工程学院作学习中央31号文件精神专题报告</div>
-                    </div>
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <div class="swiper1">
-                        <img class="imgs" src="../../assets/swiper4.png" alt="">
-                        <div class="intro">水調歌頭—慶祝黨的十九大勝利召開</div>
+                <mt-swipe-item v-for="item in swiperIntro" :key="item.url" >
+                    <div class="swiper1" @click="skipToDetail(item.url)">
+                        <img class="imgs" :src="item.imgUrl" alt="">
+                        <div class="intro">{{item.title}}</div>
                     </div>
                 </mt-swipe-item>
             </mt-swipe>
@@ -74,31 +56,56 @@
             </div>
             <div class="table-ceil">
                 <div class="table-small-ceil">
-
                 </div>
                 <div class="table-small-ceil">
-
                 </div>
             </div>
             <div class="table-ceil">
                 <div class="table-small-ceil">
-
                 </div>
                 <div class="table-small-ceil">
-
                 </div>
             </div>
         </div>
+        <publicFooter></publicFooter>
     </div>
 </template>
 
 <script>
   import { Swipe, SwipeItem } from 'mint-ui';
+  import publicFooter from '../../components/footer';
+  import '../../iconfont/iconfont.css';
     export default {
         name: "index",
         components:{
           Swipe,
-          SwipeItem
+          SwipeItem,
+          publicFooter
+        },
+        data(){
+          return{
+            swiperIntro:[]
+          }
+        },
+        methods:{
+          skipToLogin(){
+            this.$router.push('/login')
+          },
+          skipToDetail(id){
+            this.$router.push(`/swiper_detail?id=${id}`)
+          },
+          getSwiperData(){
+            this.$axios.get('/carousel/carouselList.do').then(res=>{
+              if(res.code == 1){
+                this.swiperIntro = res.rows
+              }
+            }).catch(err=>{
+              console.log(err)
+            })
+          }
+        },
+        created(){
+          this.getSwiperData();
         }
     }
 </script>
@@ -224,6 +231,7 @@
         display: flex;
         justify-content: space-around;
         margin-top: -4px;
+        margin-bottom: 44px;
         .table-ceil{
             width: 125px;
             height: 165px;
