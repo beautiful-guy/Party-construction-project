@@ -3,10 +3,15 @@ import Router from 'vue-router'
 import DemoHeader from '@/views/demo_header'
 const components = {
   LoginPage: () => import('@/components/login_page'),
-  SwiperDetail: () => import('@/views/swiper_detail'),
+  NewsDetail: () => import('@/views/news_detail'),
   Inform: () => import('@/views/inform'),
   UserInfo:()=>import('@/views/userinfo'),
-  InformDetail:()=>import('@/views/inform_detail')
+  NewsEye:()=>import('@/views/xg_newseye'),
+  ZsLive:()=>import('@/views/zs_live'),
+  PolitialStudy:()=>import('@/views/political_study'),
+  OneClick:()=>import('@/views/one_click'),
+  ShowIdentity:()=>import('@/views/showidentity'),
+  PartyToday:()=>import('@/views/party_today')
 }
 Vue.use(Router)
 
@@ -23,14 +28,9 @@ export default new Router({
         component:components.LoginPage
       },
       {
-        path:'/swiper_detail',
-        name:'/swiper_detail',
-        component:components.SwiperDetail
-      },
-      {
-        path:'/inform_detail',
-        name:'/inform_detail',
-        component:components.InformDetail
+        path:'/news_detail',
+        name:'news_detail',
+        component:components.NewsDetail
       },
       {
         path:'/Inform',
@@ -41,6 +41,36 @@ export default new Router({
         path:'/userinfo',
         name:'userinfo',
         component:components.UserInfo
+      },
+      {
+        path:'/newseye',
+        name:'newseye',
+        component:components.NewsEye
+      },
+      {
+        path:'/zs_live',
+        name:'zs_live',
+        component:components.ZsLive
+      },
+      {
+        path:'/political_study',
+        name:'political_study',
+        component:components.PolitialStudy
+      },
+      {
+        path:'/one_click',
+        name:'one_click',
+        component:components.OneClick
+      },
+      {
+        path:'/showidentity',
+        name:'showidentity',
+        component:components.ShowIdentity
+      },
+      {
+        path:'/partyToday',
+        name:'partyToday',
+        component:components.PartyToday
       }
   ]
 })

@@ -20,11 +20,11 @@
         </div>
         <div class="content-main">
             <div class="content-main-top">
-                <div class="main1 width1">
+                <div class="main1 width1" @click="skipToNewseye">
                     <img src="../../assets/icon1.png" alt="">
                     <div>信工新闻眼</div>
                 </div>
-                <div class="main1 width2">
+                <div class="main1 width2" @click="skipToZslive">
                     <img src="../../assets/icon2.png" alt="">
                     <div>掌上组织生活</div>
                 </div>
@@ -34,15 +34,15 @@
                 </div>
             </div>
             <div class="content-main-bottom">
-                <div class="main2 width4">
+                <div class="main2 width4" @click="skipToOneclick">
                     <img src="../../assets/icon4.png" alt="">
                     <div>党建一点通</div>
                 </div>
-                <div class="main2 width5">
+                <div class="main2 width5" @click="skipToIdentity">
                     <img src="../../assets/icon5.png" alt="">
                     <div>党员亮身份</div>
                 </div>
-                <div class="main2 width6">
+                <div class="main2 width6" @click="skipToPartytoday">
                     <img src="../../assets/icon6.png" alt="">
                     <div>党史上的今天</div>
                 </div>
@@ -84,15 +84,37 @@
         },
         data(){
           return{
-            swiperIntro:[]
+            swiperIntro:[],
+            title:'随时随地学'
           }
         },
         methods:{
           skipToLogin(){
             this.$router.push('/login')
           },
+          skipToZslive(){
+            this.$router.push('/zs_live')
+          },
+          skipToOneclick(){
+            this.$router.push('/one_click')
+          },
+          skipToIdentity(){
+            this.$router.push('/showidentity')
+          },
+          skipToPartytoday(){
+            this.$router.push('/partyToday')
+          },
           skipToDetail(id){
-            this.$router.push(`/swiper_detail?id=${id}`)
+            this.$router.push({
+              name:'news_detail',
+              params:{
+                title:this.title,
+                id
+              }
+            })
+          },
+          skipToNewseye(){
+            this.$router.push('/newseye')
           },
           getSwiperData(){
             this.$axios.get('/carousel/carouselList.do').then(res=>{

@@ -56,7 +56,7 @@
     }
     .login-main{
         width: 100%;
-        height: 624px;
+        height: 594px;
         text-align: center;
         .img-wrapper{
             width: 203px;

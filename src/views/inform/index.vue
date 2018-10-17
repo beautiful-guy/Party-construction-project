@@ -23,7 +23,7 @@
 
 <script>
     import footerItem from '../../components/footer';
-    import { Toast } from 'mint-ui';
+    import { Toast,Indicator } from 'mint-ui';
   export default {
     name: "index",
     components:{
@@ -31,28 +31,37 @@
     },
     data(){
       return{
-        informData:[]
+        informData:[],
+        title:'通知早知道'
       }
     },
     methods:{
       getInformData(){
-        this.$axios.get('/news/newsList.do').then(res=>{
+        Indicator.open('加载中...');
+        this.$axios.get('/news/newsList.do?page=1&rows=10&type=2').then(res=>{
           if(res.code == 1){
             this.informData = res.rows
-            console.log(this.informData)
+            Indicator.close();
           }else {
             Toast({
               message:'数据请求失败!',
               position:'top',
               duration:1500
             });
+            Indicator.close();
           }
         }).catch(err=>{
           console.log(err)
         })
       },
       skipToSwiperDetail(id){
-        this.$router.push(`/inform_detail?id=${id}`)
+        this.$router.push({
+          name:'news_detail',
+          params:{
+            title:this.title,
+            id
+          }
+        })
       }
     },
     created(){

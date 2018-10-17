@@ -1,9 +1,6 @@
 <template>
     <div class="swiper-detail">
-        <div class="login-header">
-            <img src="../../assets/left_arrow2.png" @click="skipToIndex" >
-            <span>随时随地学</span>
-        </div>
+        <header_component :title="this.title"></header_component>
         <div class="detail-main">
             <p>{{detailData.title}}</p>
             <div class="detail-content" v-html="detailData.content"></div>
@@ -12,29 +9,35 @@
 </template>
 
 <script>
-  import { Toast } from 'mint-ui';
+  import { Toast,Indicator } from 'mint-ui';
+  import header_component from '../../components/header_component';
   export default {
     name: "index",
+    components:{
+      header_component
+    },
     data(){
       return{
-        detailData:{}
+        detailData:{},
+        title:''
       }
     },
     methods:{
-      skipToIndex(){
-        this.$router.push('/index')
-      },
       getDetailData(){
-        let id = this.$route.query.id
+        let id = this.$route.params.id;
+        this.title = this.$route.params.title;
+        Indicator.open('加载中...');
         this.$axios.get(`news/newsContent.do?newsId=${id}`).then(res=>{
           if(res.code == 1){
-            this.detailData = res.data
+            this.detailData = res.data;
+            Indicator.close();
           }else {
             Toast({
               message:'数据请求失败!',
               position:'top',
               duration:1500
             });
+            Indicator.close();
           }
         }).catch(err=>{
           console.log(err)
@@ -50,25 +53,6 @@
 <style scoped lang="scss">
 .swiper-detail{
     position: relative;
-    .login-header{
-        width: 100%;
-        height: 43px;
-        text-align: center;
-        color: #fff;
-        line-height: 43px;
-        font-size: 18px;
-        font-weight: 500;
-        background-color: #c50206;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        img{
-            float: left;
-            width: 25px;
-            margin-top: 8px;
-        }
-    }
     .detail-main{
         width:355px;
         margin:53px auto 10px ;
