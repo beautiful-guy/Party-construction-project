@@ -52,13 +52,7 @@
         this.$router.push('/index');
       },
       skipToDetail(id){
-        this.$router.push({
-          name:'news_detail',
-          params:{
-            title:this.title2,
-            id
-          }
-        })
+        this.$router.push(`/news_detail?title=${this.title2}&id=${id}`)
       },
       getListData(){
         let type = this.type;
@@ -116,6 +110,7 @@
                         }
                         .intro{
                             margin-left: 10px;
+                            width: 100%;
                             p{
                                 height: 48px;
                                 font-size: 16px;

@@ -55,15 +55,15 @@
             <div class="table-ceil">
             </div>
             <div class="table-ceil">
-                <div class="table-small-ceil">
+                <div class="table-small-ceil" @click="skipToEveryStudy">
                 </div>
-                <div class="table-small-ceil">
+                <div class="table-small-ceil" @click="skipToSystem">
                 </div>
             </div>
             <div class="table-ceil">
-                <div class="table-small-ceil">
+                <div class="table-small-ceil" @click="skipToPhoto">
                 </div>
-                <div class="table-small-ceil">
+                <div class="table-small-ceil" @click="skipToActivity">
                 </div>
             </div>
         </div>
@@ -103,6 +103,18 @@
           },
           skipToPartytoday(){
             this.$router.push('/partyToday')
+          },
+          skipToEveryStudy(){
+            this.$router.push('/every_study')
+          },
+          skipToSystem(){
+            this.$router.push('/system')
+          },
+          skipToActivity(){
+            this.$router.push('/activity')
+          },
+          skipToPhoto(){
+            this.$router.push('/anytimephoto')
           },
           skipToDetail(id){
             this.$router.push({

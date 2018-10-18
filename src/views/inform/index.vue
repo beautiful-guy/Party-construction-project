@@ -55,13 +55,7 @@
         })
       },
       skipToSwiperDetail(id){
-        this.$router.push({
-          name:'news_detail',
-          params:{
-            title:this.title,
-            id
-          }
-        })
+        this.$router.push(`/news_detail?title=${this.title}&id=${id}`)
       }
     },
     created(){

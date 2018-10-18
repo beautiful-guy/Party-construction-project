@@ -9,16 +9,16 @@
                 <img src="../../assets/header_img.png" alt="">
             </div>
             <form class="oneOfForm">
-                <input class="form-item" type="text" placeholder="身份证号">
-                <input class="form-item form-item2" type="password" placeholder="密码">
-                <mt-button type="danger" size="large">登录</mt-button>
+                <input class="form-item" type="text" v-model="formData.id_card" placeholder="身份证号">
+                <input class="form-item form-item2" type="password" v-model="formData.password" placeholder="密码">
+                <mt-button type="danger" size="large" @click="login">登录</mt-button>
             </form>
         </div>
     </div>
 </template>
 
 <script>
-  import { Button  } from 'mint-ui';
+  import { Button,Toast  } from 'mint-ui';
   export default {
     name: "index",
     component:{
@@ -26,12 +26,35 @@
     },
     data(){
       return{
+        formData:{
+          id_card:'',
+          password:''
+        },
 
       }
     },
     methods:{
       skipToIndex(){
         this.$router.push('/index')
+      },
+      login(){
+        let formData = new FormData();
+        formData.append('id_card',this.formData.id_card);
+        formData.append('password',this.formData.password)
+        this.$axios.post('/user/userLogin.do',formData).then(res=>{
+            if(res.code == 1){
+              this.$store.commit('ACCOUNT_INFOR',res.token)
+              this.$router.push('/userinfo')
+            }else {
+              Toast({
+                message:res.msg,
+                position:'top',
+                duration:1500
+              });
+            }
+        }).catch(err=>{
+          console.log(err)
+        })
       }
     }
   }

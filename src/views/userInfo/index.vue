@@ -5,12 +5,13 @@
         </div>
         <div class="userinfo-avatar">
             <div>
-                <img src="../../assets/hh_bg.png" alt="">
+                <img :src="this.userData.header?this.userData.header:''" alt="">
+                <img v-if="isloading" src="../../assets/hh_bg.png" alt="">
             </div>
-            <p>您还没有登录，请登录</p>
+            <p>{{this.userData.username?this.userData.username:this.desc}}</p>
         </div>
         <div class="userinfo-list">
-            <div class="list-item">
+            <div class="list-item" @click="skipToPersonDetail">
                 <img class="list-icon" src="../../assets/list_icon1.png" alt="">
                 <span>个人信息</span>
                 <img class="list-arrow" src="../../assets/list_arrow1.png" alt="">
@@ -31,17 +32,46 @@
                 <img class="list-arrow" src="../../assets/list_arrow1.png" alt="">
             </div>
         </div>
+        <div v-if="userData.header" @click="logout">
+            <mt-button type="danger" size="large">退出登录</mt-button>
+        </div>
         <footerItem></footerItem>
     </div>
 </template>
 
 <script>
   import footerItem from '../../components/footer';
-
+  import {Button} from 'mint-ui'
   export default {
     name: "index",
     components:{
       footerItem
+    },
+    data(){
+      return{
+        userData:{},
+        desc:'您还没登录，请先登录',
+        param:'',
+        isloading:true
+      }
+    },
+    methods:{
+      getUserinfoData(){
+        if(this.userData.header){
+          this.isloading = false
+        }
+      },
+      logout(){
+        this.$store.commit('ACCOUNT_INFOR',this.param);
+        this.isloading = true
+        this.$router.push('/login');
+      },
+      skipToPersonDetail(){
+          this.$router.push('/personal_detail')
+      }
+    },
+    created(){
+      this.getUserinfoData()
     }
   }
 </script>
@@ -77,6 +107,7 @@
         }
     }
     .userinfo-list{
+        margin-bottom: 50px;
         .list-item{
             border-bottom: 1px solid #ccc;
             position: relative;

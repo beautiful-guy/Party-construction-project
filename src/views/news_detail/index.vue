@@ -24,8 +24,8 @@
     },
     methods:{
       getDetailData(){
-        let id = this.$route.params.id;
-        this.title = this.$route.params.title;
+        let id = this.$route.query.id;
+        this.title = this.$route.query.title;
         Indicator.open('加载中...');
         this.$axios.get(`news/newsContent.do?newsId=${id}`).then(res=>{
           if(res.code == 1){

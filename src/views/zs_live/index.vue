@@ -24,7 +24,7 @@
                     <img src="../../assets/live_icon4.png" alt="">
                     <span>明主评议</span>
                 </div>
-                <div>
+                <div @click="skipToOrganization">
                     <img src="../../assets/live_icon5.png" alt="">
                     <span>流动党员找组织</span>
                 </div>
@@ -50,6 +50,9 @@
     methods:{
       skipToStudy(){
         this.$router.push('/political_study')
+      },
+      skipToOrganization(){
+        this.$router.push('/organization')
       }
     }
   }
