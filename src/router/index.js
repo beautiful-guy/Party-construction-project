@@ -19,12 +19,18 @@ const components = {
   System:()=>import('@/views/system'),
   Activity:()=>import('@/views/activity'),
   AnytimePhoto:()=>import('@/views/anytimephoto'),
-  PersonalDetail:()=>import('@/views/personal_details')
+  PersonalDetail:()=>import('@/views/personal_details'),
+  EditPersonal:()=>import('@/views/editPersonal'),
+  Interaction:()=>import('@/views/interaction')
 }
 Vue.use(Router)
 
 const router = new Router({
   routes: [
+      {
+        path:'/',
+        redirect:'/index'
+      },
       {
         path: '/index',
         name: 'DemoHeader',
@@ -57,6 +63,14 @@ const router = new Router({
         path:'/newseye',
         name:'newseye',
         component:components.NewsEye
+      },
+      {
+        path:'/interaction',
+        name:'interaction',
+        meta:{
+          requireAuth:true
+        },
+        component:components.Interaction
       },
       {
         path:'/zs_live',
@@ -115,6 +129,11 @@ const router = new Router({
           requireAuth:true
         },
         component:components.PersonalDetail
+      },
+      {
+        path:'/editPersonal',
+        name:'editPersonal',
+        component:components.EditPersonal
       }
   ]
 })

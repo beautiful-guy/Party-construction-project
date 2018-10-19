@@ -15,7 +15,7 @@ module.exports = {
         target:'http://211.67.177.56:8080',
         changeOrigin:true,
         pathRewrite:{
-          '^/apis':'/'
+          '^/apis':''
         }
       }
     },

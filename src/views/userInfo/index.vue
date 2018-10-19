@@ -6,7 +6,7 @@
         <div class="userinfo-avatar">
             <div>
                 <img :src="this.userData.header?this.userData.header:''" alt="">
-                <img v-if="isloading" src="../../assets/hh_bg.png" alt="">
+                <img v-if="this.isloading" src="../../assets/hh_bg.png" alt="">
             </div>
             <p>{{this.userData.username?this.userData.username:this.desc}}</p>
         </div>
@@ -57,9 +57,16 @@
     },
     methods:{
       getUserinfoData(){
-        if(this.userData.header){
-          this.isloading = false
-        }
+        this.$axios.get('/user/userInfo.do').then(res=>{
+          if(res.code == 1){
+            this.userData = res.data
+          }
+          if(this.userData.header){
+            this.isloading = false
+          }
+        }).catch(err=>{
+          console.log(err)
+        })
       },
       logout(){
         this.$store.commit('ACCOUNT_INFOR',this.param);

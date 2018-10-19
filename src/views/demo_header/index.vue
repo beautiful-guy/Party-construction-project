@@ -4,7 +4,7 @@
             <div class="header-img">
                 <img src="../../assets/header_img.png" alt="">
             </div>
-            <div class="header-login" @click="skipToLogin">
+            <div class="header-login" v-if="!$store.state.token"  @click="skipToLogin">
                 <span>登录</span>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     <img src="../../assets/icon2.png" alt="">
                     <div>掌上组织生活</div>
                 </div>
-                <div class="main1 width3">
+                <div class="main1 width3" @click="skipToInteraction">
                     <img src="../../assets/icon3.png" alt="">
                     <div>党员云互动</div>
                 </div>
@@ -85,12 +85,15 @@
         data(){
           return{
             swiperIntro:[],
-            title:'随时随地学'
+            title:'随时随地学',
           }
         },
         methods:{
           skipToLogin(){
             this.$router.push('/login')
+          },
+          skipToInteraction(){
+            this.$router.push('/interaction')
           },
           skipToZslive(){
             this.$router.push('/zs_live')
@@ -117,13 +120,7 @@
             this.$router.push('/anytimephoto')
           },
           skipToDetail(id){
-            this.$router.push({
-              name:'news_detail',
-              params:{
-                title:this.title,
-                id
-              }
-            })
+            this.$router.push(`/news_detail?title=${this.title}&id=${id}`)
           },
           skipToNewseye(){
             this.$router.push('/newseye')
