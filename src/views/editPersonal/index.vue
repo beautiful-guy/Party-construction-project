@@ -12,66 +12,70 @@
             </div>
             <div class="list-item">
                 <p class="item-text">姓名</p>
-                <input class="item-text input-item" type="text" disabled v-model="formData.username" dir="rtl">
+                <input class="item-text input-item" type="text"  v-model="formData.username">
             </div>
             <div class="list-item">
                 <p class="item-text">身份证</p>
-                <input class="item-text input-item" type="text" disabled  v-model="formData.idCard" dir="rtl">
+                <input class="item-text input-item" type="text" disabled  v-model="formData.idCard" >
             </div>
             <div class="list-item">
                 <p class="item-text">家庭住址</p>
-                <input class="item-text input-item" type="text" v-model="formData.hometown" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.hometown" >
             </div>
             <div class="list-item">
                 <p class="item-text">工作住址</p>
-                <input class="item-text input-item" type="text" v-model="formData.address" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.address" >
             </div>
             <div class="list-item">
                 <p class="item-text">民族</p>
-                <input class="item-text input-item" type="text" v-model="formData.nation" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.nation" >
             </div>
             <div class="list-item">
                 <p class="item-text">微信号</p>
-                <input class="item-text input-item" type="text" v-model="formData.wxNum" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.wxNum" >
             </div>
             <div class="list-item">
                 <p class="item-text">QQ号</p>
-                <input class="item-text input-item" type="text" v-model="formData.qqNum" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.qqNum" >
             </div>
             <div class="list-item">
                 <p class="item-text">性别</p>
-                <input class="item-text input-item" type="text" v-model="formData.sex" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.sex" >
             </div>
             <div class="list-item">
                 <p class="item-text">最高学历</p>
-                <input class="item-text input-item" type="text" v-model="formData.education" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.education" >
             </div>
             <div class="list-item">
                 <p class="item-text">职称</p>
-                <input class="item-text input-item" type="text" v-model="formData.jobRank" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.jobRank" >
             </div>
             <div class="list-item">
                 <p class="item-text">薪资水平</p>
-                <input class="item-text input-item" type="text" v-model="formData.salary" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.salary" >
             </div>
             <div class="list-item">
                 <p class="item-text">入党时间</p>
-                <input class="item-text input-item" type="text" v-model="formData.joinPartyTime" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.joinPartyTime" >
             </div>
             <div class="list-item">
                 <p class="item-text">党费最后缴纳时间</p>
-                <input class="item-text input-item" type="text" v-model="formData.lastPayTime" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.lastPayTime" >
             </div>
             <div class="list-item">
                 <p class="item-text">当前身份</p>
-                <input class="item-text input-item" type="text" v-model="formData.partyIdentity" dir="rtl">
+                <input class="item-text input-item" type="text" v-model="formData.partyIdentity" >
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue'
     import edit_header from '../../components/header_component';
+    import { DatetimePicker } from 'mint-ui';
+
+    Vue.component(DatetimePicker.name, DatetimePicker);
   export default {
     name: "index",
     components:{
@@ -99,7 +103,7 @@
           joinPartyTime:'',
           lastPayTime:'',
           partyIdentity:''
-        }
+        },
       }
     },
     methods:{
@@ -117,9 +121,7 @@
         let img1 = event.target.files[0];
         let type = img1.type;
         let size = img1.size;
-        console.log(event)
         console.log(reader)
-        console.log(img1)
         if(this.imgData.accept.indexOf(type) == -1){
           alert('请换一种图片格式！');
           return false;
@@ -129,7 +131,7 @@
           return false
         }
         let form = new FormData();
-        form.append('myFile',img1,img1.name);
+        form.append('myFile',img1);
         this.$axios.post('/image/uploadBase64.do',form,{
           headers:{'Content-Type':'multipart/form-data'}
         }).then(res=>{
@@ -196,6 +198,8 @@
             .input-item{
                 border: none;
                 outline: none;
+                background: transparent;
+                text-align: right;
             }
         }
     }

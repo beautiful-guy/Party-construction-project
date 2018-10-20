@@ -21,7 +21,12 @@ const components = {
   AnytimePhoto:()=>import('@/views/anytimephoto'),
   PersonalDetail:()=>import('@/views/personal_details'),
   EditPersonal:()=>import('@/views/editPersonal'),
-  Interaction:()=>import('@/views/interaction')
+  Interaction:()=>import('@/views/interaction'),
+  InteractionDetail:()=>import('@/views/interactionDetail'),
+  Score:()=>import('@/views/score'),
+  ScoreDetail:()=>import('@/views/scoredetail'),
+  ChangePassword:()=>import('@/views/change_password'),
+  Payment:()=>import('@/views/payment'),
 }
 Vue.use(Router)
 
@@ -71,6 +76,11 @@ const router = new Router({
           requireAuth:true
         },
         component:components.Interaction
+      },
+      {
+        path:'/interactionDetail',
+        name:'interactionDetail',
+        component:components.InteractionDetail
       },
       {
         path:'/zs_live',
@@ -131,10 +141,31 @@ const router = new Router({
         component:components.PersonalDetail
       },
       {
+        path:'/score',
+        name:'score',
+        component:components.Score
+      },
+      {
         path:'/editPersonal',
         name:'editPersonal',
         component:components.EditPersonal
+      },
+      {
+        path:'/scoredetail',
+        name:'scoredetail',
+        component:components.ScoreDetail
+      },
+      {
+        path:'/change_password',
+        name:'change_password',
+        component:components.ChangePassword
+      },
+      {
+        path:'/payment',
+        name:'payment',
+        component:components.Payment
       }
+
   ]
 })
 

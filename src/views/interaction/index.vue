@@ -13,7 +13,7 @@
         <interaction_header :title="title"></interaction_header>
         <div>
             <div class="interaction-wrapper"  v-infinite-scroll="loadMore"  :infinite-scroll-disabled="isloading"
-                 infinite-scroll-distance="0" infinite-scroll-immediate-check="false">
+                 infinite-scroll-distance="10" infinite-scroll-immediate-check="false">
                 <div class="interaction-item" v-for="item in allUserinfo">
                     <div class="outer">
                         <div class="outer-left">
@@ -34,7 +34,7 @@
                         <p v-text="item.content">西瓜皮</p>
                     </div>
                     <div class="reply clearfix">
-                        <div>
+                        <div @click="skipToInteractionDetail(item.header,item.username,item.currentTime,item.content)">
                             <img src="../../assets/talk.png" alt="">
                             <span>回复</span>
                         </div>
@@ -73,7 +73,7 @@
         page:1,
         total:'',
         appear:false,
-        content:''
+        content:'',
       }
     },
     methods:{
@@ -125,6 +125,7 @@
                 position: 'top',
                 duration: 1500
               });
+              this.allUserinfo.unshift(res.data)
               this.appear = false;
             }else {
               Toast({
@@ -137,6 +138,17 @@
             console.log(err)
           })
         }
+      },
+      skipToInteractionDetail(header,username,currentTime,content){
+        this.$router.push({
+          name:'interactionDetail',
+          params:{
+            header:header,
+            username:username,
+            currentTime:currentTime,
+            content:content
+          }
+        })
       }
     },
     created(){

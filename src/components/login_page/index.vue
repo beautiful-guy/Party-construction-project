@@ -8,11 +8,11 @@
             <div class="img-wrapper">
                 <img src="../../assets/header_img.png" alt="">
             </div>
-            <form class="oneOfForm">
+            <div class="oneOfForm">
                 <input class="form-item" type="text" v-model="formData.id_card" placeholder="身份证号">
                 <input class="form-item form-item2" type="password" v-model="formData.password" placeholder="密码">
                 <mt-button type="danger" size="large" @click="login">登录</mt-button>
-            </form>
+            </div>
         </div>
     </div>
 </template>

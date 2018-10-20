@@ -16,17 +16,17 @@
                 <span>个人信息</span>
                 <img class="list-arrow" src="../../assets/list_arrow1.png" alt="">
             </div>
-            <div class="list-item">
+            <div class="list-item" @click="skipToScore">
                 <img class="list-icon" src="../../assets/list_icon2.png" alt="">
                 <span>个人量化积分</span>
                 <img class="list-arrow" src="../../assets/list_arrow1.png" alt="">
             </div>
-            <div class="list-item">
+            <div class="list-item" @click="skipToChange">
                 <img class="list-icon" src="../../assets/list_icon3.png" alt="">
                 <span>修改密码</span>
                 <img class="list-arrow" src="../../assets/list_arrow1.png" alt="">
             </div>
-            <div class="list-item">
+            <div class="list-item" @click="skipToPayment ">
                 <img class="list-icon" src="../../assets/list_icon4.png" alt="">
                 <span>党费缴纳</span>
                 <img class="list-arrow" src="../../assets/list_arrow1.png" alt="">
@@ -75,6 +75,15 @@
       },
       skipToPersonDetail(){
           this.$router.push('/personal_detail')
+      },
+      skipToScore(){
+        this.$router.push('/score')
+      },
+      skipToChange(){
+        this.$router.push('/change_password')
+      },
+      skipToPayment(){
+        this.$router.push('/payment')
       }
     },
     created(){
