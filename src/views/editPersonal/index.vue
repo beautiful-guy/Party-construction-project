@@ -40,7 +40,10 @@
             </div>
             <div class="list-item">
                 <p class="item-text">性别</p>
-                <input class="item-text input-item" type="text" v-model="formData.sex" >
+                <div class="twoInput">
+                    <span>男</span><input class="item-text input-item" type="radio" name="sex" value="1" v-model="formData.sex" >
+                    <span>女</span><input class="item-text input-item" type="radio" name="sex" value="0" v-model="formData.sex" >
+                </div>
             </div>
             <div class="list-item">
                 <p class="item-text">最高学历</p>
@@ -56,11 +59,11 @@
             </div>
             <div class="list-item">
                 <p class="item-text">入党时间</p>
-                <input class="item-text input-item" type="text" v-model="formData.joinPartyTime" >
+                <input class="item-text input-item" type="date" v-model="formData.joinPartyTime" >
             </div>
             <div class="list-item">
                 <p class="item-text">党费最后缴纳时间</p>
-                <input class="item-text input-item" type="text" v-model="formData.lastPayTime" >
+                <input class="item-text input-item" type="date" v-model="formData.lastPayTime" >
             </div>
             <div class="list-item">
                 <p class="item-text">当前身份</p>
@@ -71,11 +74,9 @@
 </template>
 
 <script>
-    import Vue from 'vue'
     import edit_header from '../../components/header_component';
-    import { DatetimePicker } from 'mint-ui';
+    import { Toast } from 'mint-ui';
 
-    Vue.component(DatetimePicker.name, DatetimePicker);
   export default {
     name: "index",
     components:{
@@ -156,7 +157,16 @@
         formdata.append('lastPayTime',this.formData.lastPayTime);
         formdata.append('partyIdentity',this.formData.partyIdentity);
         this.$axios.post('/user/modifyInfo.do',formdata).then(res=>{
-          console.log(res)
+          if(res.code == 1){
+            Toast({
+              message:res.msg,
+              position:top,
+              duration:1500
+            });
+            this.$router.push('/personal_detail')
+          }
+        }).catch(err=>{
+          console.log(err)
         })
       },
     },
@@ -200,6 +210,12 @@
                 outline: none;
                 background: transparent;
                 text-align: right;
+            }
+            .twoInput{
+                span{
+                    font-size: 14px;
+                    padding: 0 5px;
+                }
             }
         }
     }

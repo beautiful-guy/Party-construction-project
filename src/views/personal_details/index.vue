@@ -37,7 +37,7 @@
             </div>
             <div class="list-item">
                 <p>性别</p>
-                <p v-text="personalData.sex"></p>
+                <p v-text="personalData.sex == 1 ? '男': '女'"></p>
             </div>
             <div class="list-item">
                 <p>最高学历</p>
@@ -84,7 +84,7 @@
       getPersonalData(){
         this.$axios.get('/user/userInfo.do').then(res=>{
           if(res.code == 1){
-            this.personalData = res.data
+            this.personalData = res.data;
           }
         }).catch(err=>{
           console.log(err)
