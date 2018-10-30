@@ -6,8 +6,9 @@
             <div class="list-item">
                 <p class="item-text">头像</p>
                 <div>
-                    <img :src="formData.header" alt="">
-                    <input type="file" @change="upload_img">
+                    <!--<img :src="formData.header" alt="">-->
+                    <!--<input type="file" ref="file" @change="upload_img($event)">-->
+                    <uploadimg @img="header" :value="formData.header"></uploadimg>
                 </div>
             </div>
             <div class="list-item">
@@ -75,12 +76,14 @@
 
 <script>
     import edit_header from '../../components/header_component';
+    import uploadimg from '../../components/uploadImg';
     import { Toast } from 'mint-ui';
 
   export default {
     name: "index",
     components:{
-      edit_header
+      edit_header,
+      uploadimg
     },
     data(){
       return{
@@ -117,32 +120,49 @@
           console.log(err)
         })
       },
-      upload_img(event){
-        let reader = new FileReader();
-        let img1 = event.target.files[0];
-        let type = img1.type;
-        let size = img1.size;
-        console.log(reader)
-        if(this.imgData.accept.indexOf(type) == -1){
-          alert('请换一种图片格式！');
-          return false;
-        }
-        if(size > 3145728){
-          alert('请选择3M以内的图片!');
-          return false
-        }
-        let form = new FormData();
-        form.append('myFile',img1);
-        this.$axios.post('/image/uploadBase64.do',form,{
-          headers:{'Content-Type':'multipart/form-data'}
-        }).then(res=>{
-            this.formData.header = res.url
-        }).catch(err=>{
-          console.log(err)
-        })
+      header(res){
+        console.log(res)
+        this.formData.header = res
       },
+      // upload_img(event) {
+      //   let reader = new FileReader();
+      //   let img1 = event.target.files[0];
+        // let type = img1.type;
+        // let size = img1.size;
+        // if (this.imgData.accept.indexOf(type) == -1) {
+        //   alert('请换一种图片格式！');
+        //   return false;
+        // }
+        // if (size > 3145728) {
+        //   alert('请选择3M以内的图片!');
+        //   return false
+        // }
+
+      //   reader.readAsDataURL(img1);
+      //   const _this = this;
+      //   reader.onload = function () {
+      //     let dataUrl = reader.result;
+      //     let formData = new FormData();
+      //     formData.append('myFile', dataUrl);
+      //     _this.$axios.post('/image/uploadBase64.do', formData).then(res => {
+      //       console.log(res);
+      //       _this.formData.header = res.url;
+      //     })
+      //   }
+      // },
+      //   let form = new FormData();
+      //   form.append('myFile',img1);
+      //   this.$axios.post('/image/uploadBase64.do',form,{
+      //     headers:{'Content-Type':'multipart/form-data'}
+      //   }).then(res=>{
+      //       this.formData.header = res.url
+      //   }).catch(err=>{
+      //     console.log(err)
+      //   })
+      // },
       updateInfo(){
         let formdata = new FormData();
+        formdata.append('header',this.formData.header);
         formdata.append('username',this.formData.username);
         formdata.append('hometown',this.formData.hometown);
         formdata.append('address',this.formData.address);

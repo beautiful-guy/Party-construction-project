@@ -49,7 +49,6 @@
             </div>
         </div>
         <div class="banner">
-            <img src="../../assets/banner01.png" alt="">
         </div>
         <div class="allTable-ceil">
             <div class="table-ceil">
@@ -250,10 +249,10 @@
         }
     }
     .banner{
-        img{
-            width: 100%;
-            height: 90px;
-        }
+        background-image: url("../../assets/banner01.png");
+        background-size: 100% 100%;
+        width: 100%;
+        height: 90px;
     }
     .allTable-ceil{
         height: 165px;

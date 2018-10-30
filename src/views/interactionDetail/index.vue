@@ -76,7 +76,7 @@
         formdata.append('forum_id',undefined);
         this.$axios.post('/forum/addComment.do',formdata).then(res=>{
           if(res.code == 1){
-            this.newData.unshift(res.data)
+            this.newData.push(res.data)
             Toast({
               message:res.msg,
               position:top,
@@ -98,10 +98,10 @@
     .interactionDetail-wapper{
         width: 100%;
         height: 86vh;
-        background-color:#efeff4;
+        margin-top: 23px;
         position: relative;
         .interaction-item{
-            margin-top: 43px;
+            border-top: 23px solid #efeff4;
             padding: 16px 16px 30px;
             background-color: #fff;
             .outer {
